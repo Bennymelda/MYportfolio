@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/*
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+*/
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html,
+body,
+#root {
+  background: #f1f1ee;
+}
+
+.dark #root {
+  background: #151515;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
