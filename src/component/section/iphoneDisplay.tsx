@@ -34,12 +34,14 @@ function TechIcon({
   const groupRef = useRef<THREE.Group>(null);
 
   const aspect = useMemo(() => {
-    if (
-      textureMap.image &&
-      textureMap.image.width &&
-      textureMap.image.height
-    ) {
-      return textureMap.image.width / textureMap.image.height;
+    const image = (
+      textureMap as THREE.Texture & {
+        image?: { width?: number; height?: number };
+      }
+    ).image;
+
+    if (image?.width && image?.height) {
+      return image.width / image.height;
     }
 
     return 1;
@@ -169,9 +171,6 @@ function CenteredModel() {
  const screenTexture = websiteTexture.clone()
 screenTexture.flipY = false
 screenTexture.needsUpdate = true
-console.log("SCREEN:", screen)
-console.log("SCREEN GEOMETRY:", screen?.geometry)
-console.log("SCREEN UV:", screen?.geometry.attributes.uv)
 
 
 if (screen && screen instanceof THREE.Mesh) {

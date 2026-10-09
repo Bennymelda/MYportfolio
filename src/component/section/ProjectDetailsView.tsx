@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { PROJECTS_DATA } from "./MainProject";
-import type { Project } from "./MainProject";
+import { PROJECTS_DATA, type Project } from "./projectsData";
 import FooterSection from "./Footer";
 import { motion } from "framer-motion";
 interface ProjectDetailProps {
@@ -257,7 +256,7 @@ const nextProject =
      className="lg:col-span-5 max-w-7xl flex flex-col space-y-8">
 
       <div className="space-y-6 text-xl leading-relaxed">
-        {project.overview.map((paragraph) => (
+        {(project.overview ?? []).map((paragraph) => (
           <p key={paragraph}>
             {paragraph}
           </p>
@@ -322,7 +321,7 @@ const nextProject =
 
         <ul className="space-y-4 text-base leading-relaxed border-t border-neutral-200 dark:border-zinc-800/80 pt-2">
 
-          {project.contributions.map((item) => (
+          {(project.contributions ?? []).map((item) => (
             <li
               key={item}
               className="relative pl-4 border-b border-neutral-200 dark:border-zinc-800/80 pb-4 before:content-['•'] before:absolute before:left-0 before:text-orange-500"
