@@ -66,12 +66,12 @@ const experiences = [
 ];
 
   return (
-    <>
+    <div className="w-full max-w-full overflow-x-clip">
     <motion.section
   initial={{ opacity: 0 }}
   animate={{ opacity: 1 }}
   transition={{ duration: 0.6 }}
- className="bg-[#F8F8F6] text-[#0d0d0d] dark:bg-[#0D0D0D] dark:text-white p-8 md:p-16 pt-30 md:pt-40 font-sans min-h-screen flex flex-col justify-between"
+ className="bg-[#F8F8F6] text-[#0d0d0d] dark:bg-[#0D0D0D] dark:text-white p-5 sm:p-8 md:p-16 pt-30 md:pt-40 font-sans min-h-screen flex flex-col justify-between"
 >
       <div>
         {/* Top Header Label */}
@@ -119,7 +119,7 @@ const experiences = [
 
           {/* Quick Metadata Stats */}
        
-<div className="lg:col-span-5 grid grid-cols-3 gap-4 text-xs font-mono uppercase tracking-wider pt-2">
+<div className="lg:col-span-5 grid grid-cols-1 min-[420px]:grid-cols-3 gap-4 text-xs font-mono uppercase tracking-wider pt-2">
   <div>
     <span className="text-neutral-500 dark:text-neutral-600 block mb-2">BASED IN</span>
     <span className="text-[#0d0d0d] dark:text-white font-semibold">Anambra, NG</span>
@@ -256,7 +256,7 @@ hover:border-[#0d0d0d] dark:hover:border-white text-xs font-mono tracking-wider 
       </div>
     </motion.section>
 
-   <section className="bg-[#F8F8F6] text-[#0D0D0D] dark:bg-[#0D0D0D] dark:text-white p-8 md:p-16 font-sans flex flex-col gap-20"> 
+  <section className="bg-[#F8F8F6] text-[#0D0D0D] dark:bg-[#0D0D0D] dark:text-white p-5 sm:p-8 md:p-16 font-sans flex flex-col gap-20"> 
   {/* 03 EXPERIENCE SECTION */} 
   <div> 
     {/* Section Header */} 
@@ -367,7 +367,7 @@ hover:border-[#0d0d0d] dark:hover:border-white text-xs font-mono tracking-wider 
 </section>
 
 
-    <section className="bg-[#F8F8F6] text-[#0D0D0D] dark:bg-[#0D0D0D] dark:text-white p-8 md:p-16 font-sans flex flex-col gap-20">
+    <section className="bg-[#F8F8F6] text-[#0D0D0D] dark:bg-[#0D0D0D] dark:text-white p-5 sm:p-8 md:p-16 font-sans flex flex-col gap-20">
   {/* 05 IMPACT SECTION */}
   <div>
     {/* Section Header */}
@@ -451,7 +451,7 @@ hover:border-[#0d0d0d] dark:hover:border-white text-xs font-mono tracking-wider 
    <StackAndNumbers /> 
    <ContactSection />
    <FooterSection />
-</>
+</div>
   );
 };
 

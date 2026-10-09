@@ -13,7 +13,7 @@ export const SelectedWorkSection: React.FC = () => {
 
       <h2 className="text-xs sm:text-sm tracking-[0.25em] text-orange-500 uppercase font-semibold flex items-center gap-2">
         <span className="text-orange-500">03</span>
-        SELECTED WORK — 2022 / 2026
+        SELECTED WORK — 2024 / 2026
       </h2>
 
       <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>

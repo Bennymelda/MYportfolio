@@ -82,7 +82,7 @@ const SelectedProjectsHeader = () => {
             </div>
             <div>
               <span className="text-neutral-500 dark:text-neutral-500 block mb-2">Years</span>
-              <span className="text-neutral-900 dark:text-white text-base font-normal">2022 — 2026</span>
+              <span className="text-neutral-900 dark:text-white text-base font-normal">2024 — 2026</span>
             </div>
             <div>
               <span className="text-neutral-500 dark:text-neutral-500 block mb-2">Role</span>

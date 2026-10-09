@@ -100,7 +100,7 @@ useEffect(() => {
         </div>
         <div>
           <span className="text-neutral-500 dark:text-neutral-600 block mb-2">TIMEZONE</span>
-          <span className="text-[#0D0D0D] dark:text-white font-semibold">GMT+5, Almaty</span>
+          <span className="text-[#0D0D0D] dark:text-white font-semibold">GMT+1, Anambra</span>
         </div>
         <div>
           <span className="text-neutral-500 dark:text-neutral-600 block mb-2">RESPONSE</span>
