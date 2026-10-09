@@ -60,9 +60,10 @@ const SelectedProjectsHeader = () => {
   }}
           className="max-w-xl text-neutral-600 dark:text-neutral-400 text-medium md:text-xl leading-6 font-normal">
            
-            Eight products from Kazakhstan and Kyrgyzstan: an esports platform, 
-            a marketplace, a mall network, a govtech vendor, a paint factory, 
-            a microfinance company and two mobile apps.
+             Five projects built around modern web experiences from an
+  e-commerce platform and recruiter dashboard to interactive
+  portfolio experiences and practical web applications. I focus on responsive interfaces, thoughtful
+  design, and smooth user interactions.
           </motion.p>
 
           {/* Stats Metadata */}

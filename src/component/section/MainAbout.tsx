@@ -87,7 +87,7 @@ const experiences = [
         </motion.div>
 
         <motion.h1 
-         initial={{ y: 100, opacity: 0 }}
+         initial={{ y: -100, opacity: 0 }}
   animate={{ y: 0, opacity: 1 }}
   transition={{
     duration: 0.8,
@@ -160,7 +160,7 @@ const experiences = [
               
               {/* Replace src with your actual image path */}
               <img
-                src="/path-to-photo.jpg"
+                src="/benny.png"
                 alt="IBESI BENEDICTA"
                 className="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 transition-transform duration-500"
               />
