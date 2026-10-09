@@ -14,7 +14,7 @@ import ContactSections from './component/section/ContactSection'
 import AboutSection from './component/section/MainAbout'
 import ScrollToTop from './component/section/scrollTop'
 import Welcome from './component/section/WelcomePage'
-import ComputerCanvas from './component/section/iphoneDisplay';
+//import ComputerCanvas from './component/section/iphoneDisplay';
 import SelectedWorkSection from './component/section/MainProject';
 
 function App() {
@@ -47,7 +47,7 @@ function App() {
                   <ComputerCanvas />
                 </div>
                 */}
-                
+
                 <ApproachSection />
                 <SelectedWorkSection />
                 <ServicesSection />
@@ -75,9 +75,9 @@ function App() {
           element={<SelectedProjectsHeader />}
         />
         <Route
-  path="/work/:projectId"
-  element={<ProjectDetailPage />}
-/>
+          path="/work/:projectId"
+          element={<ProjectDetailPage />}
+        />
       </Routes>
 
       {showWelcome && <Welcome />}
