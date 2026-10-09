@@ -76,7 +76,7 @@ export const SelectedWorkSection: React.FC = () => {
               </h3>
 
               <p className="text-xs text-neutral-300 mt-1 font-medium">
-                {project.url} · {project.location}
+                {project.url}
               </p>
 
             </div>

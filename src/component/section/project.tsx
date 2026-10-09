@@ -222,7 +222,7 @@ const SelectedProjectsHeader = () => {
               </div>
 
              <p className="text-xs text-zinc-500 dark:text-zinc-400 tracking-wide font-medium">
-                {project.url} . {project.location}
+                {project.url} 
               </p>
 
               {/* Tags */}

@@ -36,7 +36,7 @@ function TechIcon({
   const aspect = useMemo(() => {
     const image = (
       textureMap as THREE.Texture & {
-        image?: { width?: number; height?: number };
+        image?: { width? : number; height?: number };
       }
     ).image;
 
@@ -168,16 +168,67 @@ function CenteredModel() {
 
   const screen = scene.getObjectByName("Object_4")
   const websiteTexture = useTexture("/portfolio1.png")
- const screenTexture = websiteTexture.clone()
-screenTexture.flipY = false
-screenTexture.needsUpdate = true
+
+  const textureImage = websiteTexture.image as HTMLImageElement | { width?: number; height?: number } | undefined
+  const textureAspect = textureImage && textureImage.width && textureImage.height
+    ? textureImage.width / textureImage.height
+    : 16 / 9
+
+  const screenTexture = websiteTexture.clone()
+  screenTexture.colorSpace = THREE.SRGBColorSpace
+  screenTexture.flipY = false
+  screenTexture.needsUpdate = true
+
+  if (screen && screen instanceof THREE.Mesh) {
+    // Keep the screenshot proportional to the source image instead of stretching it
+    // across the phone display plane.
+    
+    const fitWidth = 1.18
+    const fitHeight = fitWidth / textureAspect
+
+    screen.scale.set(fitWidth, fitHeight, 1)
+    screen.position.z = 0.022
+    screen.rotation.y = 0
+
+    screen.material = new THREE.MeshBasicMaterial({
+      map: screenTexture,
+      transparent: true,
+      toneMapped: false,
+      side: THREE.DoubleSide,
+      alphaTest: 0.05,
+    })
+  }
+console.log("Screen mesh:", screen);
+console.log("Screen dimensions:", screen?.scale);
+console.log("Screen geometry:", screen instanceof THREE.Mesh
+  ? screen.geometry.attributes.uv
+  : "Not a mesh"
+);
 
 
-if (screen && screen instanceof THREE.Mesh) {
-  screen.material = new THREE.MeshBasicMaterial({
-    map: websiteTexture,
-  })
+const uv = screen instanceof THREE.Mesh
+  ? screen.geometry.attributes.uv
+  : undefined;
+
+if (uv) {
+  const uvArray = uv.array as ArrayLike<number>;
+
+  const uValues = [];
+  const vValues = [];
+
+  for (let i = 0; i < uv.count; i++) {
+    uValues.push(uvArray[i * 2]);
+    vValues.push(uvArray[i * 2 + 1]);
+  }
+
+  console.log("UV range:", {
+    minU: Math.min(...uValues),
+    maxU: Math.max(...uValues),
+    minV: Math.min(...vValues),
+    maxV: Math.max(...vValues),
+  });
 }
+
   // Auto-center the loaded GLTF model's bounding box at (0, 0, 0)
   useMemo(() => {
     const box = new THREE.Box3().setFromObject(scene)

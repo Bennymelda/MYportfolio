@@ -79,7 +79,7 @@ const navLinks = [
           <div className="w-7 h-7 bg-[#0D0D0D] text-white dark:bg-white dark:text-black rounded-full flex items-center justify-center text-xs font-bold">
             B
           </div>
-          <span className="font-semibold text-white text-sm tracking-[0.2em]">Benny</span>
+          <span className="font-semibold dark:text-white text-black text-sm tracking-[0.2em]">Benny</span>
         </Link>
 
         {/* Navigation Links */}

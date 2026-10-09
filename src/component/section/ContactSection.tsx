@@ -88,7 +88,7 @@ useEffect(() => {
     >
       <div className="lg:col-span-7">
         <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-lg font-normal leading-relaxed max-w-xl">
-          Tell me about the project — I usually reply the same day. English or Russian both work.
+          Tell me about the project — I usually reply the same day. English .
         </p>
       </div>
 
