@@ -42,11 +42,14 @@ function App() {
               <>
 
                 <HeroSection />
+                {/*
                 <div className='w-full relative h-[450px] sm:h-[550px] md:h-[650px] lg:h-[750px] bg-[#F8F8F6] dark:bg-[#0d0d0d] relative overflow-hidden flex items-center justify-center'>
                   <ComputerCanvas />
                 </div>
-                <SelectedWorkSection />
+                */}
+                
                 <ApproachSection />
+                <SelectedWorkSection />
                 <ServicesSection />
                 <StackAndNumbers />
                 <ContactSection />
