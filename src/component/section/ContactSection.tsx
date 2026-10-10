@@ -308,8 +308,9 @@ const ContactSections = () => {
                     DOWNLOAD CV (PDF) ↗
                   </a>
                 </div>
+                */}
               </div>
-  */}
+  
               {/* Local Time Widget */}
               <motion.div
                 initial={{ y: 40, opacity: 0, scale: 0.97 }}
