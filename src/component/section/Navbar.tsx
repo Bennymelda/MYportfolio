@@ -50,7 +50,7 @@ useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeLang, setActiveLang] = useState('EN');
+ // const [activeLang, setActiveLang] = useState('EN');
 
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const navLinks = [
 
         {/* Header Controls */}
         <div className="flex items-center gap-4">
-          {/* Language Switcher */}
+          {/* Language Switcher 
           <div className="flex bg-black/5 dark:bg-white/5 border border-black/20 dark:border-white/20 rounded-full p-1 text-[11px] font-semibold">
            
             <button
@@ -177,7 +177,7 @@ const navLinks = [
               EN
             </button>
           </div>
-     
+     */}
 
           {/* Theme Badge */}
         <button
@@ -321,7 +321,7 @@ const navLinks = [
           </a>
         </div>
 
-        {/* Language Switcher */}
+        {/* Language Switcher 
         <div className="pt-2">
           <div className="inline-flex items-center bg-black/5 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 rounded-full p-1 text-xs font-mono tracking-widest">
             {[ "EN"].map((lang) => (
@@ -339,6 +339,7 @@ const navLinks = [
             ))}
           </div>
         </div>
+*/}
       </motion.div>
     </motion.div>
   )}
