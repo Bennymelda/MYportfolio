@@ -14,7 +14,7 @@ import ContactSections from './component/section/ContactSection'
 import AboutSection from './component/section/MainAbout'
 import ScrollToTop from './component/section/scrollTop'
 import Welcome from './component/section/WelcomePage'
-//import ComputerCanvas from './component/section/iphoneDisplay';
+import ComputerCanvas from './component/section/iphoneDisplay';
 import SelectedWorkSection from './component/section/MainProject';
 
 function App() {
@@ -42,11 +42,11 @@ function App() {
               <>
 
                 <HeroSection />
-                {/*
+               
                 <div className='w-full relative h-[450px] sm:h-[550px] md:h-[650px] lg:h-[750px] bg-[#F8F8F6] dark:bg-[#0d0d0d] relative overflow-hidden flex items-center justify-center'>
                   <ComputerCanvas />
                 </div>
-                */}
+                
 
                 <ApproachSection />
                 <SelectedWorkSection />

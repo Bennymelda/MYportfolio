@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { Float, Html, OrbitControls, Preload, useGLTF, useProgress, useTexture } from "@react-three/drei"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { Suspense, useMemo, useRef } from "react"
+import { Suspense, useEffect, useMemo, useRef } from "react"
 
 function CanvasLoader() {
   const { progress } = useProgress()
@@ -18,10 +18,10 @@ function CanvasLoader() {
 }
 
 interface TechIconProps {
-  texture: string;
-  position: [number, number, number];
-  scale: number;
-  floatSpeed?: number;
+  texture: string
+  position: [number, number, number]
+  scale: number
+  floatSpeed?: number
 }
 
 function TechIcon({
@@ -30,31 +30,31 @@ function TechIcon({
   scale,
   floatSpeed = 2,
 }: TechIconProps) {
-  const textureMap = useTexture(texture);
-  const groupRef = useRef<THREE.Group>(null);
+  const textureMap = useTexture(texture)
+  const groupRef = useRef<THREE.Group>(null)
 
   const aspect = useMemo(() => {
     const image = (
       textureMap as THREE.Texture & {
-        image?: { width? : number; height?: number };
+        image?: { width?: number; height?: number }
       }
-    ).image;
+    ).image
 
     if (image?.width && image?.height) {
-      return image.width / image.height;
+      return image.width / image.height
     }
 
-    return 1;
-  }, [textureMap]);
+    return 1
+  }, [textureMap])
 
-  const iconWidth = scale * (aspect >= 1 ? 1 : aspect);
-  const iconHeight = scale * (aspect >= 1 ? 1 / aspect : 1);
+  const iconWidth = scale * (aspect >= 1 ? 1 : aspect)
+  const iconHeight = scale * (aspect >= 1 ? 1 / aspect : 1)
 
   useFrame(({ camera }) => {
     if (groupRef.current) {
-      groupRef.current.quaternion.copy(camera.quaternion);
+      groupRef.current.quaternion.copy(camera.quaternion)
     }
-  });
+  })
 
   return (
     <Float
@@ -63,11 +63,9 @@ function TechIcon({
       floatIntensity={0.2}
     >
       <group ref={groupRef} position={position}>
-
         {/* GLASS CARD */}
         <mesh>
           <planeGeometry args={[scale * 1.8, scale * 1.8]} />
-
           <meshPhysicalMaterial
             color="#ffffff"
             transparent
@@ -83,9 +81,7 @@ function TechIcon({
 
         {/* CARD BORDER */}
         <lineSegments scale={scale * 1.8}>
-          <edgesGeometry
-            args={[new THREE.PlaneGeometry(1, 1, 1, 1)]}
-          />
+          <edgesGeometry args={[new THREE.PlaneGeometry(1, 1, 1, 1)]} />
           <lineBasicMaterial
             color="#ffffff"
             transparent
@@ -96,7 +92,6 @@ function TechIcon({
         {/* SVG ICON */}
         <mesh position={[0, 0, 0.02]}>
           <planeGeometry args={[iconWidth, iconHeight]} />
-
           <meshBasicMaterial
             map={textureMap}
             transparent
@@ -106,23 +101,19 @@ function TechIcon({
             side={THREE.DoubleSide}
           />
         </mesh>
-
       </group>
     </Float>
-  );
+  )
 }
-
 
 function TechIconsGroup() {
   const groupRef = useRef<THREE.Group>(null)
   const { size } = useThree()
 
-  // Adjust orbital radius and scale relative to screen size
   const isMobile = size.width < 640
   const isTablet = size.width >= 640 && size.width < 1024
-
- const radius = isMobile ? 1.2 : isTablet ? 2.4 : 2.5
-  const iconScale = isMobile ? 0.35 : isTablet ? 0.45 : 0.55
+  const radius = isMobile ? 1.85 : isTablet ? 2.15 : 2.4
+  const iconScale = isMobile ? 0.32 : isTablet ? 0.42 : 0.5
 
   const icons = [
     { texture: "/javascript.svg" },
@@ -132,10 +123,9 @@ function TechIconsGroup() {
     { texture: "/tailwind.svg" },
   ]
 
-  // Continuous Y-axis orbit rotation around origin (0, 0, 0)
   useFrame((_, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.6
+      groupRef.current.rotation.y += delta * 0.5
     }
   })
 
@@ -143,11 +133,9 @@ function TechIconsGroup() {
     <group ref={groupRef} position={[0, 0, 0]}>
       {icons.map((icon, index) => {
         const angle = (index / icons.length) * Math.PI * 2
-
-        // 3D Orbit coordinates around origin
         const x = Math.cos(angle) * radius
         const z = Math.sin(angle) * radius
-        const y = Math.sin(angle * 2) * 0.15 // Gentle wave movement in vertical axis
+        const y = Math.sin(angle * 2) * 0.18
 
         return (
           <TechIcon
@@ -162,98 +150,207 @@ function TechIconsGroup() {
   )
 }
 
-function CenteredModel() {
-  const { scene } = useGLTF("/scene.gltf")
-  const { viewport, size } = useThree()
+// Generate rounded rectangle geometry matching the iPhone 16 Pro Max curved display
+function createIphoneScreenGeometry(width: number, height: number, radius: number): THREE.ShapeGeometry {
+  const shape = new THREE.Shape()
+  const x = -width / 2
+  const y = -height / 2
 
-  const screen = scene.getObjectByName("Object_4")
-  const websiteTexture = useTexture("/portfolio1.png")
+  shape.moveTo(x + radius, y)
+  shape.lineTo(x + width - radius, y)
+  shape.quadraticCurveTo(x + width, y, x + width, y + radius)
+  shape.lineTo(x + width, y + height - radius)
+  shape.quadraticCurveTo(x + width, y + height, x + width - radius, y + height)
+  shape.lineTo(x + radius, y + height)
+  shape.quadraticCurveTo(x, y + height, x, y + height - radius)
+  shape.lineTo(x, y + radius)
+  shape.quadraticCurveTo(x, y, x + radius, y)
 
-  const textureImage = websiteTexture.image as HTMLImageElement | { width?: number; height?: number } | undefined
-  const textureAspect = textureImage && textureImage.width && textureImage.height
-    ? textureImage.width / textureImage.height
-    : 16 / 9
+  const geometry = new THREE.ShapeGeometry(shape, 24)
 
-  const screenTexture = websiteTexture.clone()
-  screenTexture.colorSpace = THREE.SRGBColorSpace
-  screenTexture.flipY = false
-  screenTexture.needsUpdate = true
-
-  if (screen && screen instanceof THREE.Mesh) {
-    // Keep the screenshot proportional to the source image instead of stretching it
-    // across the phone display plane.
-    
-    const fitWidth = 1.18
-    const fitHeight = fitWidth / textureAspect
-
-    screen.scale.set(fitWidth, fitHeight, 1)
-    screen.position.z = 0.022
-    screen.rotation.y = 0
-
-    screen.material = new THREE.MeshBasicMaterial({
-      map: screenTexture,
-      transparent: true,
-      toneMapped: false,
-      side: THREE.DoubleSide,
-      alphaTest: 0.05,
-    })
+  // Map normalized [0, 1] UVs across the plane
+  const pos = geometry.attributes.position
+  const uvs = new Float32Array(pos.count * 2)
+  for (let i = 0; i < pos.count; i++) {
+    const px = pos.getX(i)
+    const py = pos.getY(i)
+    uvs[i * 2] = (px - x) / width
+    uvs[i * 2 + 1] = (py - y) / height
   }
-console.log("Screen mesh:", screen);
-console.log("Screen dimensions:", screen?.scale);
-console.log("Screen geometry:", screen instanceof THREE.Mesh
-  ? screen.geometry.attributes.uv
-  : "Not a mesh"
-);
+  geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2))
+  geometry.computeVertexNormals()
 
-
-const uv = screen instanceof THREE.Mesh
-  ? screen.geometry.attributes.uv
-  : undefined;
-
-if (uv) {
-  const uvArray = uv.array as ArrayLike<number>;
-
-  const uValues = [];
-  const vValues = [];
-
-  for (let i = 0; i < uv.count; i++) {
-    uValues.push(uvArray[i * 2]);
-    vValues.push(uvArray[i * 2 + 1]);
-  }
-
-  console.log("UV range:", {
-    minU: Math.min(...uValues),
-    maxU: Math.max(...uValues),
-    minV: Math.min(...vValues),
-    maxV: Math.max(...vValues),
-  });
+  return geometry
 }
 
-  // Auto-center the loaded GLTF model's bounding box at (0, 0, 0)
+function CenteredModel() {
+  const { scene, materials } = useGLTF("/scene.gltf")
+  const { viewport, size } = useThree()
+  const websiteTexture = useTexture("/portfolio1.png")
+
+  // 1. Reset original iPhone chassis mesh & materials so the 3D titanium body & camera bump remain intact
+  useEffect(() => {
+    const chassisMesh = scene.getObjectByName("Object_4") as THREE.Mesh | undefined
+    if (chassisMesh) {
+      chassisMesh.scale.set(1, 1, 1)
+      chassisMesh.position.set(0, 0, 0)
+      chassisMesh.rotation.set(0, 0, 0)
+      if (materials && materials["ASSET_MAT_MR.002"]) {
+        chassisMesh.material = materials["ASSET_MAT_MR.002"]
+      }
+    }
+  }, [scene, materials])
+
+  // 2. Generate an authentic, pixel-perfect mobile screen canvas texture with Dynamic Island & iOS Status Bar
+  const screenTexture = useMemo(() => {
+    const img = (websiteTexture as THREE.Texture).image as HTMLImageElement | undefined
+    if (!img || !img.width || !img.height) {
+      return websiteTexture
+    }
+
+    const canvas = document.createElement("canvas")
+    // Native high-DPI aspect ratio for iPhone display (~19.5:9)
+    canvas.width = 1170
+    canvas.height = 2516
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return websiteTexture
+
+    // OLED black background
+    ctx.fillStyle = "#0c0d0e"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    // Fit screenshot proportionally across the screen width (no half-cut or stretched UI)
+    const targetW = canvas.width
+    const isOriginalPortfolio = img.width === 487 && img.height === 608
+    const srcH = isOriginalPortfolio ? 545 : img.height // Cleanly trims accidental desktop watermark if present
+    const targetH = targetW * (srcH / img.width)
+
+    // Position screenshot directly below the iOS status bar
+    const startY = 85
+    ctx.drawImage(img, 0, 0, img.width, srcH, 0, startY, targetW, targetH)
+
+    // Authentic Dynamic Island pill
+    const pillW = 270
+    const pillH = 74
+    const pillX = (canvas.width - pillW) / 2
+    const pillY = 32
+    ctx.fillStyle = "#000000"
+    ctx.beginPath()
+    ctx.roundRect(pillX, pillY, pillW, pillH, pillH / 2)
+    ctx.fill()
+
+    // Dynamic Island camera sensor dot
+    ctx.fillStyle = "#0d1b2a"
+    ctx.beginPath()
+    ctx.arc(pillX + pillW - 48, pillY + pillH / 2, 16, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.fillStyle = "#1e3a5f"
+    ctx.beginPath()
+    ctx.arc(pillX + pillW - 48, pillY + pillH / 2, 8, 0, Math.PI * 2)
+    ctx.fill()
+
+    // iOS Status Bar - Time (9:41)
+    ctx.font = '600 36px -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif'
+    ctx.fillStyle = "#ffffff"
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillText("9:41", 160, 68)
+
+    // iOS Status Bar - Battery Outline & Level
+    const batX = canvas.width - 190
+    const batY = 54
+    const batW = 56
+    const batH = 28
+    ctx.strokeStyle = "#ffffff"
+    ctx.lineWidth = 3
+    ctx.beginPath()
+    ctx.roundRect(batX, batY, batW, batH, 7)
+    ctx.stroke()
+    ctx.fillStyle = "#ffffff"
+    ctx.beginPath()
+    ctx.roundRect(batX + 4, batY + 4, batW - 8, batH - 8, 4)
+    ctx.fill()
+    ctx.fillRect(batX + batW + 2, batY + 8, 4, 12)
+
+    // iOS Status Bar - Cellular signal bars
+    for (let i = 0; i < 4; i++) {
+      const barH = 8 + i * 5
+      ctx.fillRect(batX - 70 + i * 7, batY + batH - barH - 2, 4, barH)
+    }
+
+    // iOS Home Indicator bar at the bottom
+    const homeW = 340
+    const homeH = 10
+    const homeX = (canvas.width - homeW) / 2
+    const homeY = canvas.height - 40
+    ctx.fillStyle = "rgba(255, 255, 255, 0.45)"
+    ctx.beginPath()
+    ctx.roundRect(homeX, homeY, homeW, homeH, 5)
+    ctx.fill()
+
+    const texture = new THREE.CanvasTexture(canvas)
+    texture.colorSpace = THREE.SRGBColorSpace
+    texture.needsUpdate = true
+    return texture
+  }, [websiteTexture])
+
+  // 3. Attach dedicated screen display mesh to the iPhone scene graph
+  useEffect(() => {
+    const parentNode = scene.getObjectByName("ASSET.002_0") || scene
+
+    // Avoid duplicate meshes during hot reloads
+    const existing = scene.getObjectByName("IphoneScreenMesh")
+    if (existing) {
+      parentNode.remove(existing)
+    }
+
+    // Rounded screen geometry matching iPhone display area (width: 0.073, height: 0.157, radius: 0.0075)
+    const screenGeometry = createIphoneScreenGeometry(0.073, 0.157, 0.0075)
+
+    const screenMaterial = new THREE.MeshStandardMaterial({
+      map: screenTexture,
+      roughness: 0.18,
+      metalness: 0.05,
+      toneMapped: false,
+      side: THREE.FrontSide,
+    })
+
+    const screenMesh = new THREE.Mesh(screenGeometry, screenMaterial)
+    screenMesh.name = "IphoneScreenMesh"
+    // Positioned directly on the front display surface (z = 0.00353)
+    screenMesh.position.set(0, 0.0815, 0.00353)
+
+    parentNode.add(screenMesh)
+
+    return () => {
+      parentNode.remove(screenMesh)
+      screenGeometry.dispose()
+      screenMaterial.dispose()
+    }
+  }, [scene, screenTexture])
+
+  // 4. Auto-center 3D model bounding box at (0, 0, 0)
   useMemo(() => {
     const box = new THREE.Box3().setFromObject(scene)
     const center = box.getCenter(new THREE.Vector3())
     scene.position.sub(center)
   }, [scene])
 
+  // 5. Responsive scaling calculation to ensure prominent, balanced display on all screens
+  const phoneModelHeight = 0.163
+  const phoneModelWidth = 0.0788
+  const phoneAspect = phoneModelWidth / phoneModelHeight
+
   const isMobile = size.width < 640
   const isTablet = size.width >= 640 && size.width < 1024
 
-
-  
- const responsiveScale = isMobile
-  ? Math.max(viewport.width * 1.8, 1.8)
-  : isTablet
-  ? viewport.width * 1.9
-  : viewport.width * 2.2;
-    const modelY = isMobile
-  ? 0
-  : isTablet
-  ? -0.2
-  : -0.9
+  const maxHFromHeight = viewport.height * (isMobile ? 0.65 : isTablet ? 0.70 : 0.72)
+  const maxHFromWidth = (viewport.width * (isMobile ? 0.52 : 0.60)) / phoneAspect
+  const targetHeight = Math.min(maxHFromHeight, maxHFromWidth)
+  const responsiveScale = targetHeight / phoneModelHeight
 
   return (
-    <group position={[0, modelY, 0]}>
+    <group position={[0, 0, 0]}>
       <hemisphereLight intensity={2} groundColor="white" />
       <pointLight intensity={6} position={[10, 10, 10]} />
       <spotLight
@@ -284,6 +381,8 @@ export default function ComputerCanvas() {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
+          enableDamping={true}
+          dampingFactor={0.05}
           maxPolarAngle={Math.PI / 1.5}
           minPolarAngle={Math.PI / 3}
         />
