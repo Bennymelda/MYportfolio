@@ -19,12 +19,7 @@ export default function FooterSection() {
             >
               START A PROJECT <span className="text-lg "><FiArrowUpRight /></span>
             </Link>
-            <a
-              href="#cv"
-              className="px-6 py-4 rounded-full border border-neutral-300 dark:border-neutral-700 hover:border-[#0d0d0d] dark:hover:border-white text-[#0d0d0d] dark:text-white hover:bg-black/5 dark:hover:bg-white/10 text-lg font-semibold tracking-wider uppercase  transition-all flex items-center gap-2"
-            >
-              CV <span className="text-lg"><FiArrowUpRight /></span>
-            </a>
+          
           </div>
         </div>
 
@@ -42,10 +37,10 @@ export default function FooterSection() {
           {/* Social Links */}
           <div className="flex flex-col gap-3">
             <span className="text-neutral-600 dark:text-neutral-500 uppercase tracking-widest text-[12px] mb-2">SOCIAL</span>
-            <a href="https://t.me" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">Twitter</a>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">GitHub</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">LinkedIn</a>
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">Instagram</a>
+            <a href="https://x.com/BMelda28430" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">Twitter</a>
+            <a href="https://github.com/Bennymelda" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">GitHub</a>
+            <a href="https://www.linkedin.com/in/benny-ibesi" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">LinkedIn</a>
+            <a href="https://www.instagram.com/ibesibenedicta" target="_blank" rel="noreferrer" className="text-neutral-600 dark:text-neutral-400 hover:text-[#0d0d0d] dark:hover:text-white transition-colors">Instagram</a>
           </div>
         </div>
       </div>

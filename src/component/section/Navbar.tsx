@@ -294,7 +294,7 @@ const navLinks = [
         {/* Social Links */}
         <div className="flex items-center gap-6 text-xs font-mono tracking-widest text-neutral-600 dark:text-neutral-400 uppercase">
           <a
-            href="https://t.me/tadashi_brooo"
+            href="https://x.com/BMelda28430"
             target="_blank"
             rel="noreferrer"
             className="hover:text-[#0D0D0D] dark:hover:text-white transition-colors"
@@ -303,7 +303,7 @@ const navLinks = [
           </a>
 
           <a
-            href="https://github.com/dadashi44"
+            href="https://github.com/Bennymelda"
             target="_blank"
             rel="noreferrer"
             className="hover:text-[#0D0D0D] dark:hover:text-white transition-colors"
